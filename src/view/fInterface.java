@@ -4,17 +4,26 @@
  */
 package view;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.Calendar;
+import java.util.Scanner;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author KauaValim
  */
 public class fInterface extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form fInterface
      */
     public fInterface() {
         initComponents();
+        
     }
 
     /**
@@ -35,7 +44,7 @@ public class fInterface extends javax.swing.JFrame {
         lbGenre = new javax.swing.JLabel();
         txtBornDate = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
+        txtPanel = new javax.swing.JTextPane();
         btnConsult = new javax.swing.JButton();
         rbtFemale = new javax.swing.JRadioButton();
         rbtMale = new javax.swing.JRadioButton();
@@ -43,7 +52,7 @@ public class fInterface extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(153, 153, 255));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 100, 211), 20));
         jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanel1.setMinimumSize(new java.awt.Dimension(810, 440));
@@ -56,8 +65,9 @@ public class fInterface extends javax.swing.JFrame {
         jLabel1.setAlignmentY(0.0F);
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 265, -1));
 
-        jLabel2.setBackground(new java.awt.Color(153, 255, 153));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Icons/zodiac128/leao128px.png"))); // NOI18N
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Icons/galaxy128px.png"))); // NOI18N
+        jLabel2.setLabelFor(btnConsult);
         jLabel2.setBorder(javax.swing.BorderFactory.createMatteBorder(16, 16, 16, 16, new javax.swing.ImageIcon(getClass().getResource("/img/Icons/stars16px.png")))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, -1, -1));
 
@@ -66,7 +76,6 @@ public class fInterface extends javax.swing.JFrame {
         jPanel1.add(lbName, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, -1, -1));
 
         txtName.setFont(new java.awt.Font("Segoe Print", 0, 12)); // NOI18N
-        txtName.setText("awddwdawdwad");
         txtName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNameActionPerformed(evt);
@@ -78,22 +87,20 @@ public class fInterface extends javax.swing.JFrame {
         lbGenre.setText("Gênero:");
         jPanel1.add(lbGenre, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, -1, -1));
 
-        txtBornDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
-        txtBornDate.setText("12/01/2022");
         txtBornDate.setFont(new java.awt.Font("Segoe Print", 0, 12)); // NOI18N
-        txtBornDate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBornDateActionPerformed(evt);
-            }
-        });
-        jPanel1.add(txtBornDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, -1, 30));
+        jPanel1.add(txtBornDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, 100, 30));
 
-        jTextPane1.setBackground(new java.awt.Color(51, 147, 255));
-        jTextPane1.setBorder(null);
-        jTextPane1.setFont(new java.awt.Font("Segoe Print", 0, 12)); // NOI18N
-        jScrollPane1.setViewportView(jTextPane1);
+        txtPanel.setEditable(false);
+        txtPanel.setBackground(new java.awt.Color(153, 153, 255));
+        txtPanel.setBorder(javax.swing.BorderFactory.createMatteBorder(16, 16, 16, 16, new javax.swing.ImageIcon(getClass().getResource("/img/Icons/stars16px.png")))); // NOI18N
+        txtPanel.setFont(new java.awt.Font("Segoe Print", 1, 14)); // NOI18N
+        txtPanel.setForeground(new java.awt.Color(255, 255, 255));
+        txtPanel.setAutoscrolls(false);
+        txtPanel.setFocusable(false);
+        jScrollPane1.setViewportView(txtPanel);
+        txtPanel.getAccessibleContext().setAccessibleName("");
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 210, 340, 100));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 210, 340, 190));
 
         btnConsult.setFont(new java.awt.Font("Segoe Print", 1, 14)); // NOI18N
         btnConsult.setText("Consultar Horóscopo");
@@ -106,6 +113,11 @@ public class fInterface extends javax.swing.JFrame {
 
         btngGeneros.add(rbtFemale);
         rbtFemale.setText("Feminino");
+        rbtFemale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtFemaleActionPerformed(evt);
+            }
+        });
         jPanel1.add(rbtFemale, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, -1, -1));
 
         btngGeneros.add(rbtMale);
@@ -137,22 +149,253 @@ public class fInterface extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    int gender = 3, age = 0, luckyNum = 0, time = 0, actYear, option = 0, isLeapYear = 0;
+    Boolean tDay, tMonth, tYear;
+    int maxDays[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+    int vDate[] = new int[3];
+    String date, name = "Oi Jeferson Leon,", sign = "tudo certo?", luckyColor = "Quando que esse X-calota vai acontecer?", dayTime = "A turma está questionando...";
+
+    
+    
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNameActionPerformed
 
-    private void txtBornDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBornDateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBornDateActionPerformed
-
     private void rbtMaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtMaleActionPerformed
-        // TODO add your handling code here:
+        gender = 0;
     }//GEN-LAST:event_rbtMaleActionPerformed
 
     private void btnConsultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultActionPerformed
+        String name ;  
+        name = txtName.getText();
+        if (name.length() < 9) {
+            JOptionPane.showMessageDialog(null,"Por favor, digite seu nome completo.");
+            //name = txtName.getText();
+        }        
         
+        date = txtBornDate.getText();
+        vDate[0] = Integer.parseInt(date.substring(0,2));
+        vDate[1] = Integer.parseInt(date.substring(3,5));
+        vDate[2] = Integer.parseInt(date.substring(6,10));
+        Calendar today = Calendar.getInstance();
+        actYear = today.get(Calendar.YEAR);
+        time = today.get(Calendar.HOUR_OF_DAY);
+        dayTime = getDayTime(time, dayTime);
+        isLeapYear = testIfIsLeapYear(vDate[2]);
+        if (isLeapYear == 1) {
+            maxDays[1] = 29;
+        } else {
+            maxDays[1] = 28;
+        }
+        tDay = (vDate[0] > 0 && vDate[0] <= maxDays[(vDate[1] - 1)]);
+        tMonth = (vDate[1] >= 1 && vDate[1] <= 12);
+        tYear = (vDate[2] > (actYear - 100) && vDate[2] <= actYear);
+        
+        if (tDay == false || tMonth == false || tYear == false || gender == 3 || name.length() < 9){
+            option = 1;
+        }
+        
+        switch (option){
+            case 0:
+                age = (int) showAge(vDate);
+                luckyNum = takeLuckyNumber(luckyNum);
+                luckyColor = takeLuckyColor(luckyColor);
+
+                if (vDate[0] >= 21 && vDate[1] == 3 || vDate[0] <= 20 && vDate[1] == 4) {
+                    sign = "Áries";
+                    jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Icons/zodiac128/aries128px.png")));
+                } else if (vDate[0] >= 21 && vDate[1] == 4 || vDate[0] <= 20 && vDate[1] == 5) {
+                    sign = "Touro";
+                    jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Icons/zodiac128/touro128px.png")));
+                } else if (vDate[0] >= 21 && vDate[1] == 5 || vDate[0] <= 20 && vDate[1] == 6) {
+                    sign = "Gêmeos";
+                    jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Icons/zodiac128/gemeos128px.png")));
+                } else if (vDate[0] >= 21 && vDate[1] == 6 || vDate[0] <= 21 && vDate[1] == 7) {
+                    sign = "Câncer";
+                    jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Icons/zodiac128/cancer128px.png")));
+                } else if (vDate[0] >= 22 && vDate[1] == 7 || vDate[0] <= 22 && vDate[1] == 8) {
+                    sign = "Leão";
+                    jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Icons/zodiac128/leao128px.png")));
+                } else if (vDate[0] >= 23 && vDate[1] == 8 || vDate[0] <= 22 && vDate[1] == 9) {
+                    sign = "Virgem";
+                    jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Icons/zodiac128/virgem128px.png")));
+                } else if (vDate[0] >= 23 && vDate[1] == 9 || vDate[0] <= 22 && vDate[1] == 10) {
+                    sign = "Libra";
+                    jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Icons/zodiac128/libra128px.png")));
+                } else if (vDate[0] >= 23 && vDate[1] == 10 || vDate[0] <= 21 && vDate[1] == 11) {
+                    sign = "Escorpião";
+                    jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Icons/zodiac128/escorpiao128px.png")));
+                } else if (vDate[0] >= 22 && vDate[1] == 11 || vDate[0] <= 21 && vDate[1] == 12) {
+                    sign = "Sagitário";
+                    jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Icons/zodiac128/sagitario128px.png")));
+                } else if (vDate[0] >= 22 && vDate[1] == 12 || vDate[0] <= 20 && vDate[1] == 1) {
+                    sign = "Capricórnio";
+                    jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Icons/zodiac128/capricornio128px.png")));
+                } else if (vDate[0] >= 21 && vDate[1] == 1 || vDate[0] <= 19 && vDate[1] == 2) {
+                    sign = "Aquário";
+                    jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Icons/zodiac128/aquario128px.png")));
+                } else if (vDate[0] >= 20 && vDate[1] == 2 || vDate[0] <= 20 && vDate[1] == 3) {
+                    sign = "Peixes";
+                    jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Icons/zodiac128/peixes128px.png")));
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ocorreu um erro, favor revise suas informações.");
+                }
+                
+                if (gender == 1 && age <= 23) {
+                    txtPanel.setText(dayTime + " Srta. " + name + ", nascida no dia " + vDate[0] + "/" + vDate[1] + "/"
+                            + vDate[2] + ", é do signo de " + sign + " e possui atualmente " + age
+                            + " anos. Seu número da sorte é " + luckyNum + " e sua cor da sorte é " + luckyColor + ".");
+                } else if (gender == 1) {
+                    txtPanel.setText(dayTime + " Sra. " + name + ", nascida no dia " + vDate[0] + "/" + vDate[1] + "/" + vDate[2]
+                            + ", é do signo de " + sign + " e possui atualmente " + age + " anos. Seu número da sorte é "
+                            + luckyNum + " e sua cor da sorte é " + luckyColor + ".");
+                } else {
+                    txtPanel.setText(dayTime + " Sr. " + name + ", nascido no dia " + vDate[0] + "/" + vDate[1] + "/" + vDate[2]
+                            + ", é do signo de " + sign + " e possui atualmente " + age + " anos. Seu número da sorte é "
+                            + luckyNum + " e sua cor da sorte é " + luckyColor + ".");
+                }
+                break;
+            default:
+                JOptionPane.showMessageDialog(null,"Digite uma data válida ou marque o seu gênero.;");
+                option = 0; 
+        }
     }//GEN-LAST:event_btnConsultActionPerformed
 
+    private void rbtFemaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtFemaleActionPerformed
+        gender = 1;
+    }//GEN-LAST:event_rbtFemaleActionPerformed
+ 
+// Método com retorno em String, usado para ler cadeias de texto.
+    public static String readText() {
+        String text;
+        Scanner read = new Scanner(System.in);
+        text = read.nextLine();
+        return text;
+    }
+
+    // Método com retorno em número inteiro, usado para ler números.
+    public static int readInt() {
+        int integer;
+        Scanner read = new Scanner(System.in);
+        integer = read.nextInt();
+        return integer;
+    }
+
+    /*Método com retorno em número inteiro, usado para definir o gênero do usuário,
+    e validar respostas incorretas.*/
+    public static int getGender() {
+        int gender;
+        System.out.println("\nDigite seu gênero. \n1 para Feminino \n2 para Masculino");
+        gender = readInt();
+        if (gender == 1) {
+            return 1;
+        } else if (gender == 2) {
+            return 2;
+        } else {
+            System.out.println("Sua resposta foi considerada como sendo do gênero masculino.");
+            return 2;
+        }
+    }
+
+    /*Método com retorno em número inteiro, para validar o mês de Nascimento do
+    usuário.*/
+    public static int takeMonth(int vDate[]) {
+        while (vDate[1] < 1 || vDate[1] > 12) {
+            System.out.println("Erro, digite um mês válido.");
+            vDate[1] = readInt();
+        } 
+        return vDate[1];
+    }
+
+    /* Método com retorno em número inteiro, usado para validar se o ano de
+    nascimento do usuário é um ano bissexto.*/
+    public static int testIfIsLeapYear(int leapYear) {
+        if (leapYear % 400 == 0) {
+            leapYear = 1;
+        } else if ((leapYear % 4 == 0) && (leapYear % 100 != 0)) {
+            leapYear = 1;
+        } else {
+            leapYear = 0;
+        }
+        return leapYear;
+    }
+
+    /* Método com retorno em número fracionário, para calcular a idade atual do
+    usuário.*/
+    public static int showAge(int vDate[]) {
+        LocalDate aniversario;
+        aniversario = LocalDate.of(vDate[2],vDate[1], vDate[0]);
+        final LocalDate dataAtual = LocalDate.now();
+        final Period periodo = Period.between(aniversario, dataAtual);
+        return periodo.getYears();
+    }
+
+
+    /* Método com retorno em número inteiro, para gerar o número da sorte do
+    usuário.*/
+    public static int takeLuckyNumber(int luckyNum) {
+        luckyNum = (int) 1 + (int) (Math.random() * 98);
+        return luckyNum;
+    }
+
+    // Método com retorno em String, para gerar a cor da sorte do usuário.
+    public static String takeLuckyColor(String luckyColor) {
+        int colorIndex;
+        colorIndex = (int) 1 + (int) (Math.random() * 8);
+        switch (colorIndex) {
+            case 1:
+                luckyColor = "Rosa";
+                break;
+            case 2:
+                luckyColor = "Vermelho";
+                break;
+            case 3:
+                luckyColor = "Azul";
+                break;
+            case 4:
+                luckyColor = "Verde";
+                break;
+            case 5:
+                luckyColor = "Cinza";
+                break;
+            case 6:
+                luckyColor = "Laranja";
+                break;
+            case 7:
+                luckyColor = "Violeta";
+                break;
+            case 8:
+                luckyColor = "Amarelo";
+                break;
+            case 9:
+                luckyColor = "Branco";
+                break;
+        }
+        return luckyColor;
+    }
+
+    /* Método com retorno em String, que serve para indicar qual período do dia está
+    e a forma de cumprimentar no texto resposta.*/
+    public static String getDayTime(int time, String dayTime) {
+        if (time < 12) {
+            dayTime = "Bom dia!";
+        } else if (time < 18) {
+            dayTime = "Boa tarde!";
+        } else {
+            dayTime = "Boa Noite!";
+        }
+        return dayTime;
+    }
+
+    /* Método com retorno em número inteiro, usado para questionar o usuário se ele
+    deseja repetir o programa.*/
+    public static int doQuestion() {
+        int recursion;
+        System.out.println("\nDeseja reiniciar o programa? \n1 pra 'sim'\n0 pra 'não'.");
+        recursion = readInt();
+        return recursion;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -195,7 +438,6 @@ public class fInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextPane jTextPane1;
     private javax.swing.JLabel lbBornDate;
     private javax.swing.JLabel lbGenre;
     private javax.swing.JLabel lbName;
@@ -203,5 +445,14 @@ public class fInterface extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbtMale;
     private javax.swing.JFormattedTextField txtBornDate;
     private javax.swing.JTextField txtName;
+    private javax.swing.JTextPane txtPanel;
     // End of variables declaration//GEN-END:variables
+
+    private void update(JLabel jLabel2) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private Object getClassLoader() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
